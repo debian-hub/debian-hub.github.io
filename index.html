@@ -93,7 +93,7 @@
                             <div class="text-center">
                                 
                                <h3 class="mt2 mb2">All</h3>
-                                <p>999</p>
+                                <p id="all">999</p>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                 
                                 <h3 class="mt2 mb2">Audio</h3>
                                 
-                                 <p>85</p>
+                                 <p id="Audio">85</p>
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                  <h3 class="mt2 mb2">Education</h3>
-                                <p>47</p>
+                                <p id="Education">47</p>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h3 class="mt2 mb2">Games</h3>
-                                 <p>82</p>
+                                 <p id="Games">82</p>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h3 class="mt2 mb2">Graphics</h3>
-                                <p>84</p>
+                                <p id="Graphics">84</p>
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h3 class="mt2 mb2">Internet</h3>
-                                <p>158</p>
+                                <p id="Internet">158</p>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h3 class="mt2 mb2">Office</h3>
-                                <p>107</p>
+                                <p id="Office">107</p>
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h3 class="mt2 mb2">Programming</h3>
-                                <p>107</p>
+                                <p id="Programming">107</p>
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h3 class="mt2 mb2">System &amp; Tools</h3>
-                                <p>251</p>
+                                <p id="System&Tools">251</p>
                             </div>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                <h3 class="mt2 mb2">Video</h3>
-                                <p>67</p>
+                                <p id="Video">67</p>
                             </div>
                         </div>
                     </div>
@@ -229,8 +229,85 @@
     <!-- Bootstrap core JS-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-     <script src="jq/jquery-3.5.1.min.js" type="text/javascript"></script>
-     <script src="js/bootstrap.min.js" type="text/javascript"></script>
+      <script>
+        window.onload = () => {
+            // URL of the JSON file
+            const jsonUrl = 'https://raw.githubusercontent.com/debian-hub/database/main/db.json'; // Replace with your JSON file URL
+
+            // Fetch the JSON file
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    if (Array.isArray(data)) {
+                        const count = data.length;
+                        document.getElementById('all').textContent = count;
+
+                        const categoryCount = data.reduce((countMap, item) => {
+                            if (item.category) {
+                                countMap[item.category] = (countMap[item.category] || 0) + 1;
+                            }
+                            return countMap;
+                        }, {});
+
+                        if ('Audio' in categoryCount) {
+                            document.getElementById('Audio').textContent = categoryCount['Audio'];
+                        }
+
+                        if ('Education' in categoryCount) {
+                            document.getElementById('Education').textContent = categoryCount['Education'];
+                        }
+
+                        if ('Games' in categoryCount) {
+                            document.getElementById('Games').textContent = categoryCount['Games'];
+                        }else{
+                            document.getElementById('Games').textContent = 0;   
+                        }
+
+                        if ('Graphics' in categoryCount) {
+                            document.getElementById('Graphics').textContent = categoryCount['Graphics'];
+                        }
+
+                        if ('Internet' in categoryCount) {
+                            document.getElementById('Internet').textContent = categoryCount['Internet'];
+                        }
+
+                        if ('Office' in categoryCount) {
+                            document.getElementById('Office').textContent = categoryCount['Office'];
+                        }else{
+                            document.getElementById('Office').textContent = 0;
+                        }
+
+                        if ('Programming' in categoryCount) {
+                            document.getElementById('Programming').textContent = categoryCount['Programming'];
+                        }
+
+                        if ('System&Tools' in categoryCount) {
+                            document.getElementById('System&Tools').textContent = categoryCount['System&Tools'];
+                        }
+
+                        if ('Video' in categoryCount) {
+                            document.getElementById('Video').textContent = categoryCount['Video'];
+                        }else{
+                            document.getElementById('Video').textContent = 0;   
+                        }
+
+                    } else {
+                        // document.getElementById('result').textContent = 'No valid list found in the JSON.';
+                        console.log("No data");
+                    }
+                })
+                // .catch(error => {
+                //     console.error('Error fetching the JSON:', error);
+                //     // document.getElementById('result').textContent = 'Error fetching the JSON.';
+                // });
+        };
+    </script>
 </body>
 
 </html>
