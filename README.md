@@ -2,7 +2,7 @@
 
 Collection of deb files.
 
-### Demo Website availble here : [Here](https://debian-hub.github.io/DebHub/)
+### Demo Website availble here : [Here](https://debian-hub.github.io)
 
  ![GitHub Contributors](https://img.shields.io/github/contributors/jakbin/DebHub)
  ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/jakbin/DebHub)
@@ -11,7 +11,7 @@ Collection of deb files.
 
 ## Todo-List 
 
-- [x] a website for DebHub [Here](https://debian-hub.github.io/DebHub/)
+- [x] a website for DebHub [Here](https://debian-hub.github.io)
 - [x] a cli cient for DebHub to download and install deb file [Here](https://github.com/debian-hub/deb)
 - [ ] a gui cient for DebHub to download and install deb file
 
